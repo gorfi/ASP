@@ -5,7 +5,7 @@ Imports System.Web.Routing
 <HandleError()> _
 Public Class AccountController
     Inherits System.Web.Mvc.Controller
-
+    Dim dbLogin As New dbLogin
     Private formsServiceValue As IFormsAuthenticationService
     Private membershipServiceValue As IMembershipService
 
@@ -45,7 +45,7 @@ Public Class AccountController
     <HttpPost()> _
     Public Function LogOn(ByVal model As LogOnModel, ByVal returnUrl As String) As ActionResult
         If ModelState.IsValid Then
-            If MembershipService.ValidateUser(model.UserName, model.Password) Then
+            If dbLogin.VerificarUser(model.UserName, model.Password) Then
                 FormsService.SignIn(model.UserName, model.RememberMe)
                 If Not String.IsNullOrEmpty(returnUrl) Then
                     Return Redirect(returnUrl)
@@ -84,13 +84,14 @@ Public Class AccountController
     Public Function Register(ByVal model As RegisterModel) As ActionResult
         If ModelState.IsValid Then
             ' Attempt to register the user
-            Dim createStatus As MembershipCreateStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email)
+            If Not model.Password.Length < MembershipService.MinPasswordLength Then
+                Dim createStatus As MembershipCreateStatus = dbLogin.RegistrarUser(model.UserName, model.Password) 'model.email
 
-            If createStatus = MembershipCreateStatus.Success Then
-                FormsService.SignIn(model.UserName, False)
-                Return RedirectToAction("Index", "Home")
-            Else
-                ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus))
+                If createStatus = MembershipCreateStatus.Success Then
+                    Return RedirectToAction("Index", "Home")
+                Else
+                    ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus))
+                End If
             End If
         End If
 

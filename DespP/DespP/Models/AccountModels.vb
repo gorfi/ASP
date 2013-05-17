@@ -167,12 +167,12 @@ Public Class AccountMembershipService
     End Sub
 
     Public Sub New(ByVal provider As MembershipProvider)
-        _provider = If(provider, Membership.Provider)
+        ' _provider = If(provider, Membership.Provider)
     End Sub
 
     Public ReadOnly Property MinPasswordLength() As Integer Implements IMembershipService.MinPasswordLength
         Get
-            Return _provider.MinRequiredPasswordLength
+            Return 6 ' Return _provider.MinRequiredPasswordLength
         End Get
     End Property
 
