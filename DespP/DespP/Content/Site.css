@@ -159,12 +159,11 @@ page width. Or, you can specify an exact pixel width. */
 }
 
 #cssmenu {
-
-	zoom:1;
+    zoom:1;
 	height: 69px;
 	background: url(http://cssmenumaker.com/sites/default/files/menu/150/bottom-bg.png) repeat-x center bottom;
 	border-radius: 2px;
-	
+	box-shadow: 8px 8px 20px black;
 }
 
 #cssmenu ul{

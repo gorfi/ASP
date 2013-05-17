@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\menu.js" />
     <Content Include="Views\Home\Login.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

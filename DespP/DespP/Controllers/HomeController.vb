@@ -5,11 +5,7 @@ Public Class HomeController
     Inherits System.Web.Mvc.Controller
 
     Function Index() As ActionResult
-        ViewData("Message") = "Welcome to ASP.NET MVC!"
-
-        Dim dada As New dbLogin
-        dada.VerificarUser("admin", "texste")
-
+        ViewData("Message") = "Integer tincidunt Cras dapibus!"
         Return View()
     End Function
 
